@@ -30,7 +30,7 @@ export default function Header() {
             {INFO_LIST.map((info) => {
               return (
                 <li
-                  className='list-none mr-10 hover:text-gray-900 '
+                  className='list-none mr-10 hover:text-gray-900 dark:hover:text-red-400'
                   key={info.id}
                 >
                   <Link href={info.link}>{info.title}</Link>

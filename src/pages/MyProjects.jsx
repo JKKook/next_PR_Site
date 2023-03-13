@@ -8,7 +8,7 @@ export default function MyProjects({ projects }) {
   return (
     <>
       <Header />
-      <h1 className='text-3xl font-bold container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center'>
+      <h1 className='text-3xl font-bold text-gray-500 container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center'>
         Project Gallerys : {projects.results.length}
       </h1>
 

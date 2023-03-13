@@ -8,6 +8,7 @@ import chatbot from '../../../public/images/chatbot.png';
 import carrot from '../../../public/images/carrot.png';
 import youtubeIcon from '../../../public/images/youtubeIcon.webp';
 import { getRGBColor } from '@/utils/changeRGB';
+import { useRouter } from 'next/router';
 
 export default function ProjectItem({ datas }) {
   // variables
@@ -27,7 +28,7 @@ export default function ProjectItem({ datas }) {
 
   return (
     <div className='flex shadow-md justify-between items-center'>
-      <div className='flex ml-4 basis-1/4 flex-col p-4'>
+      <div className='flex ml-4 pd-4 basis-1/4 flex-col p-4'>
         <div className='flex flex-row'>
           <h1 className='text-2xl mr-4'>
             {projectIcon ? (

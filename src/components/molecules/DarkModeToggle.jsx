@@ -11,7 +11,7 @@ export default function DarkModeToggle() {
   return (
     <div>
       <button
-        className='inline-flex items-center border-0 py-1 px-3 hover:text-indigo-500 rounded mt-4 md:mt-0 ml-4'
+        className='inline-flex items-center border-0 py-1 px-3 text-gray-500 hover:text-indigo-500 rounded mt-4 md:mt-0 ml-4'
         type='button'
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >

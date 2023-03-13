@@ -1,38 +1,116 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 프로젝트
 
-## Getting Started
+Nextjs 기반으로 Notion API를 활용한 포트폴리오 PR 사이트입니다. Notion API는 제 노션 프로젝트 갤러리에 있는 태그들을 활용 했습니다.
 
-First, run the development server:
+## 주요 Stacks
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- next.js
+- react.js
+- tailwindCSS
+- postman(Notion-API)
+- atomic design
+- vercel(deploy)
+
+## 레이아웃
+
+레이아웃 구성의 정보는 HomeData인 라우터 정보와, 환경변수 설정, 노션 API에 대한 정보 등을 서술했습니다.
+
+<br>
+#### 1.Home Data
+```js
+export const INFO_LIST = [
+  {
+    id: 1,
+    title: 'Home',
+    link: '/',
+  },
+  {
+    id: 2,
+    title: 'About',
+    link: '/AboutMe',
+  },
+  {
+    id: 3,
+    title: 'Stacks',
+    link: '/Stacks',
+  },
+  {
+    id: 4,
+    title: 'Works',
+    link: '/MyProjects',
+  },
+];
+```
+<br>
+
+#### 2.dotenv
+
+```js
+yarn add dotenv
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```js
+NEXT_PUBLIC_NOTION_TOKEN = '';
+NEXT_PUBLIC_NOTION_DATABASE_ID = '';
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<br>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+#### 3. Notin API
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```js
+// GetStaticProps
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+export async function getStaticProps() {
+  // Query a Database in Notion
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Notion-Version': '2022-06-28',
+      'content-type': 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+    },
+    body: JSON.stringify({
+      sorts: [
+        {
+          property: 'Github',
+          direction: 'descending',
+        },
+      ],
+      page_size: 100,
+    }),
+  };
 
-## Learn More
+  const res = await fetch(
+    `https://api.notion.com/v1/databases/${DATABASEID}/query`,
+    options,
+  );
 
-To learn more about Next.js, take a look at the following resources:
+  const projects = await res.json();
+  console.log('result', projects);
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  return {
+    props: { projects }, // will be passed to the page component as props
+  };
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```js
 
-## Deploy on Vercel
+## Notion API Datas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  // variables
+  const projectIcon = datas.icon.emoji;
+  const projectTitle = datas.properties.이름.title[0].plain_text;
+  const projectGit = datas.properties.Github.url;
+  const projectCreatedAt = datas.properties.생성일.created_time;
+  const projectDescription = datas.properties.설명.rich_text;
+  const projectTag = datas.properties.태그.multi_select;
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br>
+
+## Deploy
+
+- vercel

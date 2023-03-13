@@ -1,6 +1,10 @@
 ## 프로젝트
 
-Nextjs 기반으로 Notion API를 활용한 포트폴리오 PR 사이트입니다. Notion API는 제 노션 프로젝트 갤러리에 있는 태그들을 활용 했습니다.
+Nextjs 기반으로 Notion API를 활용한 포트폴리오 PR 사이트입니다. <br />
+ Notion API는 제 노션 프로젝트 갤러리에 있는 태그들을 활용 했습니다. <br />
+정적 사이트 생성의 목적을 위해서 Nextjs의 getStaticProps 매서드를 활용한 것이 특징이며, Notion API는 postman을 통해 관리한 것이 특징입니다.
+
+<br />
 
 ## 주요 Stacks
 
@@ -11,11 +15,14 @@ Nextjs 기반으로 Notion API를 활용한 포트폴리오 PR 사이트입니�
 - atomic design
 - vercel(deploy)
 
+<br />
+
 ## 레이아웃
 
 레이아웃 구성의 정보는 HomeData인 라우터 정보와, 환경변수 설정, 노션 API에 대한 정보 등을 서술했습니다.
 
-<br>
+<br />
+
 #### 1.Home Data
 ```js
 export const INFO_LIST = [
@@ -113,4 +120,4 @@ export async function getStaticProps() {
 
 ## Deploy
 
-- vercel
+- vercel : https://next-pr-site-4wkhjtngq-jkkook.vercel.app/
